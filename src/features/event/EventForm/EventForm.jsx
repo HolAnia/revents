@@ -12,14 +12,25 @@ class EventForm extends Component {
     }
 
     handleFormSubmit = (evt) =>{
-        evt.preventDefault();  
-        this.props.createEvent(this.state)
+        evt.preventDefault();
+        if(this.state.id){
+            this.props.updateEvent(this.state);
+        } else{
+            this.props.createEvent(this.state)
+        }   
     }
 
     handleImputChange = ({target: {name, value}}) =>{
         this.setState({
             [name]: value
         })
+    }
+    componentDidMount(){
+        if(this.props.selectedEvent !== null){
+            this.setState({
+                ...this.props.selectedEvent
+            })
+        }
     }
 
     render() {
